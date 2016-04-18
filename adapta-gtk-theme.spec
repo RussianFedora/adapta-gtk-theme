@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.20.3.45
+Version:	3.20.3.50
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for Gnome
 Group:		User Interface/Desktops
@@ -28,15 +28,7 @@ make
 %install
 %{make_install}
 
-%if 0%{?fedora} < 24
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.18 \
-	%{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
 rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
-%else
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20 \
-        %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.18
-%endif
 
 %files
 %defattr(-,root,root)
@@ -45,6 +37,9 @@ rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.18
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Mon Apr 18 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.50-1.R
+- update to 3.20.3.50
+
 * Mon Apr 18 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.45-1.R
 - update to 3.20.3.45
 
