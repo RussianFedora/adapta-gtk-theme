@@ -1,6 +1,6 @@
 Name:		adapta-gtk-theme
 Version:	3.21.1.141
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
 
@@ -32,7 +32,8 @@ Adapta GTK theme for GNOME.
 %setup -q -n Adapta-%{version}
 
 %build
-./autogen.sh
+autoreconf --force --install --warnings=all
+%configure --enable-chrome
 make
 
 %install
@@ -61,6 +62,9 @@ rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Thu May 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.141-2.R
+- enable chromium support
+
 * Thu May 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.141-1.R
 - update to 3.21.1.141
 
