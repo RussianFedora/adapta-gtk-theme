@@ -43,17 +43,29 @@ make
 rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
 mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22 \
     %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
+rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
+rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.22
 %endif
 
 %if 0%{?fedora} == 24
 rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
 mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20 \
     %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
+rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
+rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.20
 %endif
 
 %if 0%{?fedora} == 23
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
+rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
+rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
 %endif
+
+# fix some rpmlint issues
+chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/index.theme
+chmod -x %{buildroot}%{_datadir}/themes/Adapta/index.theme
+chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
+chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
+
 
 %files
 %defattr(-,root,root)
