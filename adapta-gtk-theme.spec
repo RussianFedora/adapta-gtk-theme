@@ -1,6 +1,6 @@
 Name:		adapta-gtk-theme
-Version:	3.21.1.242
-Release:	2%{?dist}
+Version:	3.21.2.98
+Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
 
@@ -62,6 +62,9 @@ rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Tue Jun  7 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.98-1.R
+- update to 3.21.2.98
+
 * Wed May 25 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.242-1.R
 - update to 3.21.1.242
 
