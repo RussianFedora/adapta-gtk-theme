@@ -1,14 +1,15 @@
 Name:		adapta-gtk-theme
-Version:	3.21.2.98
+Version:	3.21.2.132
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
 
 License:	GPLv2
 URL:		https://github.com/tista500/Adapta
-Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz
+Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:	automake
+BuildRequires:	gtk3-devel
 
 %if 0%{?fedora} >= 25
 Requires:	gtk3 >= 3.21
@@ -39,26 +40,7 @@ make
 %install
 %{make_install}
 
-%if 0%{?fedora} >= 25
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22 \
-    %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
-rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.22
-%endif
-
-%if 0%{?fedora} == 24
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20 \
-    %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
-rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.20
-%endif
-
-%if 0%{?fedora} == 23
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
-%endif
+rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.??
 
 # fix some rpmlint issues
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/index.theme
@@ -74,6 +56,9 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Mon Jun 20 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.132-1.R
+- update to 3.21.2.132
+
 * Tue Jun  7 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.98-1.R
 - update to 3.21.2.98
 
