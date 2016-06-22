@@ -41,7 +41,7 @@ autoreconf --force --install --warnings=all
 %if 0%{?fedora} < 25
 	--disable-gtk_next
 %endif
-make
+make %{?_smp_mflags}
 
 %install
 %{make_install}
