@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.21.2.132
+Version:	3.21.3.6
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
@@ -78,6 +78,12 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Wed Jun 22 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.3.6-1.R
+- update to 3.21.3.6
+- From this version, Adapta includes neither pre-generated CSSs nor PNGs.
+- Users/Contributors should build them by their own in build sequence.
+- Color-changer was added (see details in README.md).
+
 * Mon Jun 20 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.132-1.R
 - update to 3.21.2.132
 
