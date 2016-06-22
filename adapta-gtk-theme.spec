@@ -10,6 +10,7 @@ Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%
 
 BuildRequires:	automake
 BuildRequires:	inkscape
+BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	rubygem-bundler
 BuildRequires:	rubygem-sass
 
