@@ -9,6 +9,9 @@ URL:		https://github.com/tista500/Adapta
 Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:	automake
+BuildRequires:	inkscape
+BuildRequires:	rubygem-bundler
+BuildRequires:	rubygem-sass
 
 %if 0%{?fedora} >= 25
 Requires:	gtk3 >= 3.21
