@@ -12,7 +12,7 @@ BuildRequires:	automake
 BuildRequires:	inkscape
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	rubygem-bundler
-BuildRequires:	rubygem-sass
+BuildRequires:	rubygem-sass >= 3.4.21
 
 %if 0%{?fedora} >= 25
 Requires:	gtk3 >= 3.21
@@ -42,6 +42,7 @@ autoreconf --force --install --warnings=all
 %if 0%{?fedora} < 25
 	--disable-gtk_next
 %endif
+
 make %{?_smp_mflags}
 
 %install
