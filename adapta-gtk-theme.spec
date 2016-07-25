@@ -39,6 +39,7 @@ Adapta GTK theme for GNOME.
 autoreconf --force --install --warnings=all
 %configure --enable-chrome \
 	--enable-silent-rules \
+	--disable-parallel \
 %if 0%{?fedora} < 25
 	--disable-gtk_next
 %endif
@@ -85,6 +86,7 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %changelog
 * Mon Jul 25 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.53-1
 - update to 3.21.4.53
+- disable parallel build
 
 * Wed Jul 20 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.15-1
 - update to 3.21.4.15
