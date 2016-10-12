@@ -87,6 +87,9 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 * Wed Oct 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.1.56-1
 - update to 3.22.1.56
 
+* Mon Sep  5 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.5.31-1
+- update to 3.21.5.31
+
 * Tue Aug 30 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.263-1
 - update to 3.21.4.263
 
