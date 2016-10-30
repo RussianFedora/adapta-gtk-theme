@@ -33,7 +33,7 @@ Adapta GTK theme for GNOME.
 
 
 %prep
-%setup -q -n Adapta-%{version}
+%setup -q
 
 %build
 autoreconf --force --install --warnings=all
