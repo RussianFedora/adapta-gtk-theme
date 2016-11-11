@@ -33,7 +33,7 @@ Adapta GTK theme for GNOME.
 
 
 %prep
-%setup -q -n Adapta-%{version}
+%setup -q
 
 %build
 autoreconf --force --install --warnings=all
@@ -86,6 +86,9 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %changelog
 * Fri Nov 11 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.12-1
 - update to 3.22.3.12
+
+* Sun Oct 30 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.2.30-1
+- update to 3.22.2.30
 
 * Wed Oct 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.1.56-1
 - update to 3.22.1.56
