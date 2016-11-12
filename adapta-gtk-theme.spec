@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.22.3.12
+Version:	3.22.3.20
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
@@ -77,6 +77,13 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 
 
+%pre
+rm -f /usr/share/themes/Adapta-Eta/gtk-2.0 \
+	/usr/share/themes/Adapta-Nokto-Eta/gtk-2.0 \
+	/usr/share/themes/Adapta-Nokto/gtk-2.0/gtkrc \
+	/usr/share/themes/Adapta/gtk-2.0/gtkrc
+
+
 %files
 %defattr(-,root,root)
 %doc README.md
@@ -84,6 +91,10 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Sat Nov 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.20-1
+- update to 3.22.3.20
+- drop some symlinks before install
+
 * Fri Nov 11 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.12-1
 - update to 3.22.3.12
 
