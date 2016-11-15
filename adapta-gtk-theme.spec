@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.22.3.20
+Version:	3.22.3.59
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
@@ -13,6 +13,8 @@ BuildRequires:	inkscape
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	rubygem-bundler
 BuildRequires:	rubygem-sass >= 3.4.21
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	parallel
 
 %if 0%{?fedora} >= 25
 Requires:	gtk3 >= 3.21
@@ -76,13 +78,19 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta/index.theme
 chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 
+%pretrans -p <lua>
+-- Define the path to the symlink being replaced below.
+path = "/usr/share/themes/Adapta-Eta/gtk-2.0"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
 
-%pre
-rm -f /usr/share/themes/Adapta-Eta/gtk-2.0 \
-	/usr/share/themes/Adapta-Nokto-Eta/gtk-2.0 \
-	/usr/share/themes/Adapta-Nokto/gtk-2.0/gtkrc \
-	/usr/share/themes/Adapta/gtk-2.0/gtkrc
-
+path = "/usr/share/themes/Adapta-Nokto-Eta/gtk-2.0"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
 
 %files
 %defattr(-,root,root)
@@ -91,6 +99,9 @@ rm -f /usr/share/themes/Adapta-Eta/gtk-2.0 \
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Tue Nov 15 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.59-1
+- update to 3.22.3.59
+
 * Sat Nov 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.20-1
 - update to 3.22.3.20
 - drop some symlinks before install
