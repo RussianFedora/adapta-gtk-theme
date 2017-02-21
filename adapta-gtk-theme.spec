@@ -29,6 +29,8 @@ Adapta GTK theme for GNOME.
 
 %prep
 %autosetup -p 1
+drop missing file
+sed -i '/gtk.gresource/d' gtk/Makefile.am
 
 %build
 autoreconf --force --install --warnings=all
