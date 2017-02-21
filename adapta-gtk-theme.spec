@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.22.4.5
+Version:	3.89.4.32
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
@@ -11,22 +11,15 @@ Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%
 BuildRequires:	automake
 BuildRequires:	inkscape
 BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	rubygem-bundler
 BuildRequires:	rubygem-sass >= 3.4.21
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	parallel
+BuildRequires:	sassc
 
-%if 0%{?fedora} >= 25
-Requires:	gtk3 >= 3.21
-%endif
-
-%if 0%{?fedora} == 24
-Requires:	gtk3 >= 3.20
-%endif
-
-%if 0%{?fedora} == 23
-Requires:	gtk3 >= 3.18
-%endif
+Requires:	gtk3
 
 BuildArch:	noarch
 
@@ -35,13 +28,12 @@ Adapta GTK theme for GNOME.
 
 
 %prep
-%setup -q
+%autosetup -p 1
 
 %build
 autoreconf --force --install --warnings=all
 %configure --enable-chrome \
 	--enable-silent-rules \
-	--disable-parallel \
 %if 0%{?fedora} < 25
 	--disable-gtk_next
 %endif
@@ -51,46 +43,12 @@ make %{?_smp_mflags}
 %install
 %{make_install}
 
-%if 0%{?fedora} >= 25
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22 \
-    %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
-rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.22
-%endif
-
-%if 0%{?fedora} == 24
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20 \
-    %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
-rm -rf %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-3.20
-%endif
-
-%if 0%{?fedora} == 23
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.20
-rm -rf %{buildroot}%{_datadir}/themes/Adapta*/gtk-3.22
-%endif
-
 # fix some rpmlint issues
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/index.theme
 chmod -x %{buildroot}%{_datadir}/themes/Adapta/index.theme
 chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 
-%pretrans -p <lua>
--- Define the path to the symlink being replaced below.
-path = "/usr/share/themes/Adapta-Eta/gtk-2.0"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
-
-path = "/usr/share/themes/Adapta-Nokto-Eta/gtk-2.0"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
 
 %files
 %defattr(-,root,root)
@@ -99,6 +57,9 @@ end
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Tue Feb 21 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.4.32-1
+- update to 3.89.4.32
+
 * Thu Nov 24 2016 Arkady L. Shane <ashejn@russianfedora.pro> - 3.22.4.5-1
 - update to 3.22.4.5
 
