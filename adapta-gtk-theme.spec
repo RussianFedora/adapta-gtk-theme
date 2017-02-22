@@ -29,11 +29,13 @@ Adapta GTK theme for GNOME.
 
 %prep
 %autosetup -p 1
-#drop missing file
-sed -i '/gtk.gresource/d' gtk/Makefile.am
 
 %build
 autoreconf --force --install --warnings=all
+
+#drop missing file
+sed -i '/gtk.gresource/d' gtk/Makefile.am
+
 %configure --enable-chrome \
 	--enable-silent-rules \
 %if 0%{?fedora} < 25
