@@ -1,0 +1,100 @@
+diff -urN adapta-gtk-theme-3.89.4.32.orig/gtk/Makefile.am adapta-gtk-theme-3.89.4.32/gtk/Makefile.am
+--- adapta-gtk-theme-3.89.4.32.orig/gtk/Makefile.am	2017-02-22 14:28:48.676849536 +0300
++++ adapta-gtk-theme-3.89.4.32/gtk/Makefile.am	2017-02-22 14:29:58.572786755 +0300
+@@ -10,33 +10,28 @@
+ gtk318_file = \
+ 	$(gtk318dir)/gtk.css \
+ 	$(gtk318dir)/gtk-dark.css \
+-	$(gtk318dir)/gtk.gresource \
+ 	$(gtk3_assetdir)/thumbnail@2.png \
+ 	$(gtk3_assetdir)/thumbnail.png
+ 
+ gtk320dir   = $(srcdir)/gtk-3.20
+ gtk320_file = \
+ 	$(gtk320dir)/gtk.css \
+-	$(gtk320dir)/gtk-dark.css \
+-	$(gtk320dir)/gtk.gresource
++	$(gtk320dir)/gtk-dark.css
+ 
+ gtk320etadir   = $(srcdir)/gtk-3.20-eta
+ gtk320eta_file = \
+ 	$(gtk320etadir)/gtk.css \
+-	$(gtk320etadir)/gtk-dark.css \
+-	$(gtk320etadir)/gtk.gresource
++	$(gtk320etadir)/gtk-dark.css
+ 
+ gtk322dir   = $(srcdir)/gtk-3.22
+ gtk322_file = \
+ 	$(gtk322dir)/gtk.css \
+-	$(gtk322dir)/gtk-dark.css \
+-	$(gtk322dir)/gtk.gresource
++	$(gtk322dir)/gtk-dark.css
+ 
+ gtk322etadir   = $(srcdir)/gtk-3.22-eta
+ gtk322eta_file = \
+ 	$(gtk322etadir)/gtk.css \
+-	$(gtk322etadir)/gtk-dark.css \
+-	$(gtk322etadir)/gtk.gresource
++	$(gtk322etadir)/gtk-dark.css
+ 
+ gtk2dir   = $(srcdir)/gtk-2.0
+ gtk2_file = \
+@@ -381,14 +376,12 @@
+ gtknextdir   = $(srcdir)/gtk-4.0
+ gtknext_file = \
+ 	$(gtknextdir)/gtk.css \
+-	$(gtknextdir)/gtk-dark.css \
+-	$(gtknextdir)/gtk.gresource
++	$(gtknextdir)/gtk-dark.css
+ 
+ gtknextetadir   = $(srcdir)/gtk-4.0-eta
+ gtknexteta_file = \
+ 	$(gtknextetadir)/gtk.css \
+-	$(gtknextetadir)/gtk-dark.css \
+-	$(gtknextetadir)/gtk.gresource
++	$(gtknextetadir)/gtk-dark.css
+ 
+ xfcenotifydir   = $(srcdir)/xfce-notify-4.0
+ xfcenotify_file = \
+@@ -730,27 +723,22 @@
+ 	$(srcdir)/gtk-3.18/gtk-dark.css \
+ 	$(srcdir)/gtk-3.18/gtk-contained.css \
+ 	$(srcdir)/gtk-3.18/gtk-contained-dark.css \
+-	$(srcdir)/gtk-3.18/gtk.gresource \
+ 	$(srcdir)/gtk-3.20/gtk.css \
+ 	$(srcdir)/gtk-3.20/gtk-dark.css \
+ 	$(srcdir)/gtk-3.20/gtk-contained.css \
+ 	$(srcdir)/gtk-3.20/gtk-contained-dark.css \
+-	$(srcdir)/gtk-3.20/gtk.gresource \
+ 	$(srcdir)/gtk-3.20-eta/gtk.css \
+ 	$(srcdir)/gtk-3.20-eta/gtk-dark.css \
+ 	$(srcdir)/gtk-3.20-eta/gtk-contained.css \
+ 	$(srcdir)/gtk-3.20-eta/gtk-contained-dark.css \
+-	$(srcdir)/gtk-3.20-eta/gtk.gresource \
+ 	$(srcdir)/gtk-3.22/gtk.css \
+ 	$(srcdir)/gtk-3.22/gtk-dark.css \
+ 	$(srcdir)/gtk-3.22/gtk-contained.css \
+ 	$(srcdir)/gtk-3.22/gtk-contained-dark.css \
+-	$(srcdir)/gtk-3.22/gtk.gresource \
+ 	$(srcdir)/gtk-3.22-eta/gtk.css \
+ 	$(srcdir)/gtk-3.22-eta/gtk-dark.css \
+ 	$(srcdir)/gtk-3.22-eta/gtk-contained.css \
+ 	$(srcdir)/gtk-3.22-eta/gtk-contained-dark.css \
+-	$(srcdir)/gtk-3.22-eta/gtk.gresource \
+ 	$(srcdir)/asset/assets-gtk2/*/*.svg \
+ 	$(srcdir)/asset/assets-gtk2/*/*.png \
+ 	$(srcdir)/asset/assets-gtk3/*.svg \
+@@ -767,12 +755,10 @@
+ 	$(srcdir)/gtk-4.0/gtk-dark.css \
+ 	$(srcdir)/gtk-4.0/gtk-contained.css \
+ 	$(srcdir)/gtk-4.0/gtk-contained-dark.css \
+-	$(srcdir)/gtk-4.0/gtk.gresource \
+ 	$(srcdir)/gtk-4.0-eta/gtk.css \
+ 	$(srcdir)/gtk-4.0-eta/gtk-dark.css \
+ 	$(srcdir)/gtk-4.0-eta/gtk-contained.css \
+-	$(srcdir)/gtk-4.0-eta/gtk-contained-dark.css \
+-	$(srcdir)/gtk-4.0-eta/gtk.gresource
++	$(srcdir)/gtk-4.0-eta/gtk-contained-dark.css
+ endif
+ 
+ DISTCLEANFILES = \

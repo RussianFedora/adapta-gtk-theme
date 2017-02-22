@@ -7,6 +7,7 @@ Group:		User Interface/Desktops
 License:	GPLv2
 URL:		https://github.com/tista500/Adapta
 Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:		adapta-gtk-theme-3.89.4.32-drop-missing-file.patch
 
 BuildRequires:	automake
 BuildRequires:	inkscape
@@ -40,10 +41,11 @@ autoreconf --force --install --warnings=all
 	--disable-silent-rules \
 
 make %{?_smp_mflags}
-pushd gtk/sass
-for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
-    ./compile-gresource.sh $i
-done
+#pushd gtk/sass
+#for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
+#    ./compile-gresource.sh $i
+#done
+#popd
 
 %install
 %{make_install}
