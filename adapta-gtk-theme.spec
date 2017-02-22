@@ -33,16 +33,17 @@ Adapta GTK theme for GNOME.
 %build
 autoreconf --force --install --warnings=all
 
-#drop missing file
-sed -i '/gtk.gresource/d' gtk/Makefile.am
-
 %configure --enable-chrome \
-	--enable-silent-rules \
 %if 0%{?fedora} < 25
-	--disable-gtk_next
+	--disable-gtk_next \
 %endif
+	--disable-silent-rules \
 
 make %{?_smp_mflags}
+pushd gtk/sass
+for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
+    ./compile-gresource.sh $i
+done
 
 %install
 %{make_install}
