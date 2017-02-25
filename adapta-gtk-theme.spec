@@ -1,13 +1,12 @@
 Name:		adapta-gtk-theme
 Version:	3.89.4.32
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
 
 License:	GPLv2
 URL:		https://github.com/tista500/Adapta
 Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:		adapta-gtk-theme-3.89.4.32-drop-missing-file.patch
 
 BuildRequires:	automake
 BuildRequires:	inkscape
@@ -41,11 +40,11 @@ autoreconf --force --install --warnings=all
 	--disable-silent-rules \
 
 make %{?_smp_mflags}
-#pushd gtk/sass
-#for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
-#    ./compile-gresource.sh $i
-#done
-#popd
+pushd gtk/sass
+for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
+    ./compile-gresource.sh $i
+done
+popd
 
 %install
 %{make_install}
@@ -64,6 +63,9 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Sun Feb 26 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.4.32-2
+- generate gtk.gresource files
+
 * Tue Feb 21 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.4.32-1
 - update to 3.89.4.32
 
