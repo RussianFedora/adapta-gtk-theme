@@ -1,5 +1,5 @@
 Name:		adapta-gtk-theme
-Version:	3.89.5.91
+Version:	3.90.0.50
 Release:	1%{?dist}
 Summary:	Adapta GTK theme for GNOME
 Group:		User Interface/Desktops
@@ -55,19 +55,6 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta/index.theme
 chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 
-# Ok. Some bugs without choosing gtk version. Nautilus copy window e. g.
-%if 0%{?fedora} < 25
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22
-%endif
-
-%if 0%{?fedora} >= 25
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-rm -rf %{buildroot}%{_datadir}/themes/Adapta/gtk-3.20
-mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22 \
-	%{buildroot}%{_datadir}/themes/Adapta/gtk-3.0
-%endif
-
 %files
 %defattr(-,root,root)
 %doc README.md
@@ -75,6 +62,9 @@ mv %{buildroot}%{_datadir}/themes/Adapta/gtk-3.22 \
 %{_datadir}/themes/Adapta*
 
 %changelog
+* Thu Apr 11 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.90.0.50-1
+- update to 3.90.0.50
+
 * Wed Apr  5 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.5.91-1
 - update to 3.89.5.91
 
