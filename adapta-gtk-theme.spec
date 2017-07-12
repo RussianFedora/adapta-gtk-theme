@@ -1,7 +1,7 @@
 Name:		adapta-gtk-theme
-Version:	3.90.0.50
+Version:	3.91.0.191
 Release:	1%{?dist}
-Summary:	Adapta GTK theme for GNOME
+Summary:	Adapta GTK themes
 Group:		User Interface/Desktops
 
 License:	GPLv2
@@ -24,8 +24,31 @@ Requires:	gtk3
 BuildArch:	noarch
 
 %description
-Adapta GTK theme for GNOME.
+Adapta GTK theme
 
+%package -n adapta-nokto-gtk-theme
+Summary:	Adapta Nokto theme
+Requires:	%{name} = %{version}-%{release}
+BuildArch:	noarch
+
+%description -n adapta-nokto-gtk-theme
+Adapta Nokto GTK theme
+
+%package -n adapta-eta-gtk-theme
+Summary:	Adapta Eta theme
+Requires:	%{name} = %{version}-%{release}
+BuildArch:	noarch
+
+%description -n adapta-eta-gtk-theme
+Adapta Eta GTK theme
+
+%package -n adapta-nokto-eta-gtk-theme
+Summary:	Adapta Nokto Eta theme
+Requires:	%{name} = %{version}-%{release}
+BuildArch:	noarch
+
+%description -n adapta-nokto-eta-gtk-theme
+Adapta Nokto Eta GTK theme
 
 %prep
 %autosetup -p 1
@@ -40,11 +63,6 @@ autoreconf --force --install --warnings=all
 	--disable-silent-rules \
 
 make %{?_smp_mflags}
-pushd gtk/sass
-for i in $(ls ../gtk-* -d | grep -v eta | grep -v 2\.0 | awk -F- '{ print $NF }' | uniq); do
-    ./compile-gresource.sh $i
-done
-popd
 
 %install
 %{make_install}
@@ -56,12 +74,33 @@ chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
 chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
 
 %files
-%defattr(-,root,root)
 %doc README.md
 %license COPYING
-%{_datadir}/themes/Adapta*
+%{_datadir}/themes/Adapta
+
+%files -n adapta-nokto-gtk-theme
+%doc README.md
+%license COPYING
+%{_datadir}/themes/Adapta-Nokto
+
+%files -n adapta-eta-gtk-theme
+%doc README.md
+%license COPYING
+%{_datadir}/themes/Adapta-Eta
+
+%files -n adapta-nokto-eta-gtk-theme
+%doc README.md
+%license COPYING
+%{_datadir}/themes/Adapta-Nokto-Eta
 
 %changelog
+* Wed Jul 12 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.91.0.191-1
+- update to 3.91.0.191
+- create subpackages for all themes
+
+* Mon Jul 10 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.91.0.184-1
+- update to 3.91.0.184
+
 * Tue Apr 11 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.90.0.50-1
 - update to 3.90.0.50
 
