@@ -9,6 +9,7 @@ URL:		https://github.com/tista500/Adapta
 Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:	automake
+BuildRequires:	gnome-shell
 BuildRequires:	inkscape
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
