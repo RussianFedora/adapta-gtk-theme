@@ -1,190 +1,134 @@
-Name:		adapta-gtk-theme
-Version:	3.91.0.191
-Release:	1%{?dist}
-Summary:	Adapta GTK themes
-Group:		User Interface/Desktops
+Name:           adapta-gtk-theme
+Version:        3.93.0.12
+Release:        1%{?dist}.R
+Summary:        An adaptive Gtk+ theme based on Material Design Guidelines
 
-License:	GPLv2
-URL:		https://github.com/tista500/Adapta
-Source0:	https://github.com/tista500/Adapta/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+License:        GPLv2 and CC-BY-SA
+URL:            https://github.com/adapta-project/%{name}
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:	automake
-BuildRequires:	gnome-shell
-BuildRequires:	inkscape
-BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:	pkgconfig(librsvg-2.0)
-BuildRequires:	rubygem-bundler
-BuildRequires:	rubygem-sass >= 3.4.21
-BuildRequires:	pkgconfig(libxml-2.0)
-BuildRequires:	parallel
-BuildRequires:	sassc
+BuildArch:      noarch
 
-Requires:	gtk3
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  fdupes
+BuildRequires:  inkscape >= 0.91
+BuildRequires:  parallel
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  sassc    >= 3.3
 
-BuildArch:	noarch
+Requires:       gnome-themes-standard
+Requires:       google-noto-sans-fonts
+Requires:       google-roboto-fonts
+Requires:       gtk2-engines
+
+Obsoletes:	adapta-gtk-theme < 3.92.2.63
 
 %description
-Adapta GTK theme
+%{summary}.
 
-%package -n adapta-nokto-gtk-theme
-Summary:	Adapta Nokto theme
-Requires:	%{name} = %{version}-%{release}
-BuildArch:	noarch
 
-%description -n adapta-nokto-gtk-theme
-Adapta Nokto GTK theme
+%package        gedit
+Summary:        Gedit style addon for %{name}
 
-%package -n adapta-eta-gtk-theme
-Summary:	Adapta Eta theme
-Requires:	%{name} = %{version}-%{release}
-BuildArch:	noarch
+Requires:       %{name} == %{version}-%{release}
+Requires:       gtksourceview3
 
-%description -n adapta-eta-gtk-theme
-Adapta Eta GTK theme
+%if 0%{?fedora} || 0%{?rhel} >= 8
+Supplements:    (%{name} and gtksourceview3)
+%endif
 
-%package -n adapta-nokto-eta-gtk-theme
-Summary:	Adapta Nokto Eta theme
-Requires:	%{name} = %{version}-%{release}
-BuildArch:	noarch
+%description    gedit
+Gedit style addon for %{name}.
 
-%description -n adapta-nokto-eta-gtk-theme
-Adapta Nokto Eta GTK theme
+
+%package        plank
+Summary:        Plank dock theme addon for %{name}
+
+Requires:       %{name} == %{version}-%{release}
+%if 0%{?fedora}
+Requires:       plank
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+Supplements:    (%{name} and plank)
+%endif
+
+%description    plank
+Plank dock theme addon for %{name}.
+
 
 %prep
-%autosetup -p 1
+%autosetup
+%{_bindir}/autoreconf -fiv
+
 
 %build
-autoreconf --force --install --warnings=all
+%configure \
+  --disable-silent-rules \
+  --disable-unity        \
+  --enable-chrome        \
+  --enable-gtk_next      \
+  --enable-plank         \
+  --enable-telegram
+%make_build
 
-%configure --enable-chrome \
-%if 0%{?fedora} < 25
-	--disable-gtk_next \
-%endif
-	--disable-silent-rules \
-
-make %{?_smp_mflags}
 
 %install
-%{make_install}
+%make_install
+for f in COPYING LICENSE_CC_BY_SA4 README.md; do
+  %{_bindir}/find %{buildroot} -type f -name "$f" -print -delete
+done
 
-# fix some rpmlint issues
-chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/index.theme
-chmod -x %{buildroot}%{_datadir}/themes/Adapta/index.theme
-chmod -x %{buildroot}%{_datadir}/themes/Adapta/gtk-2.0/Others/null.svg
-chmod -x %{buildroot}%{_datadir}/themes/Adapta-Nokto/gtk-2.0/Others/null.svg
+# Add the gedit styles addon to the right location.
+%{__mkdir} -p %{buildroot}%{_datadir}/gtksourceview-3.0/styles
+%{__ln_s} %{_datadir}/themes/Adapta/gedit/adapta.xml \
+  %{buildroot}%{_datadir}/gtksourceview-3.0/styles/adapta.xml
+
+# Add the plank addon to the right location.
+%{__mkdir} -p %{buildroot}%{_datadir}/plank/themes/Adapta
+%{__ln_s} %{_datadir}/themes/Adapta/plank/dock.theme \
+  %{buildroot}%{_datadir}/plank/themes/Adapta/dock.theme
+
+%fdupes -s %{buildroot}%{_datadir}/themes
+
 
 %files
+%license COPYING LICENSE_CC_BY_SA4
 %doc README.md
-%license COPYING
-%{_datadir}/themes/Adapta
+%{_datadir}/themes/Adapta*
 
-%files -n adapta-nokto-gtk-theme
-%doc README.md
-%license COPYING
-%{_datadir}/themes/Adapta-Nokto
 
-%files -n adapta-eta-gtk-theme
-%doc README.md
-%license COPYING
-%{_datadir}/themes/Adapta-Eta
+%files          gedit
+%doc extra/gedit/README.md
+%{_datadir}/gtksourceview-3.0/styles/adapta.xml
 
-%files -n adapta-nokto-eta-gtk-theme
-%doc README.md
-%license COPYING
-%{_datadir}/themes/Adapta-Nokto-Eta
+
+%files          plank
+%if 0%{?fedora}
+%{_datadir}/plank/themes/Adapta
+%else
+%{_datadir}/plank
+%endif
+
 
 %changelog
-* Wed Jul 12 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.91.0.191-1
-- update to 3.91.0.191
-- create subpackages for all themes
+* Mon Jan  8 2018 Arkady L. Shane <ashejn@russianfedora.pro> - 3.93.0.12-1.R
+- update to 3.93.0.12
 
-* Mon Jul 10 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.91.0.184-1
-- update to 3.91.0.184
+* Fri Dec 29 2017 Björn Esser <besser82@fedoraproject.org> - 3.92.2.63-1
+- Initial import (#1529593)
 
-* Tue Apr 11 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.90.0.50-1
-- update to 3.90.0.50
+* Fri Dec 29 2017 Björn Esser <besser82@fedoraproject.org> - 3.92.2.63-0.4
+- Fix Summary and %%description for plank sub-package
 
-* Wed Apr  5 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.5.91-1
-- update to 3.89.5.91
+* Fri Dec 29 2017 Björn Esser <besser82@fedoraproject.org> - 3.92.2.63-0.3
+- Fix source url
 
-* Sun Feb 26 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.4.32-2
-- generate gtk.gresource files
+* Thu Dec 28 2017 Björn Esser <besser82@fedoraproject.org> - 3.92.2.63-0.2
+- Add sub-packages for gedit / xed and plank
 
-* Tue Feb 21 2017 Arkady L. Shane <ashejn@russianfedora.pro> - 3.89.4.32-1
-- update to 3.89.4.32
-
-* Thu Nov 24 2016 Arkady L. Shane <ashejn@russianfedora.pro> - 3.22.4.5-1
-- update to 3.22.4.5
-
-* Tue Nov 15 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.59-1
-- update to 3.22.3.59
-
-* Sat Nov 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.20-1
-- update to 3.22.3.20
-- drop some symlinks before install
-
-* Fri Nov 11 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.3.12-1
-- update to 3.22.3.12
-
-* Sun Oct 30 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.2.30-1
-- update to 3.22.2.30
-
-* Wed Oct 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.22.1.56-1
-- update to 3.22.1.56
-
-* Mon Sep  5 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.5.31-1
-- update to 3.21.5.31
-
-* Tue Aug 30 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.263-1
-- update to 3.21.4.263
-
-* Tue Aug  9 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.140-1
-- update to 3.21.4.140
-
-* Mon Jul 25 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.53-1
-- update to 3.21.4.53
-- disable parallel build
-
-* Wed Jul 20 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.4.15-1
-- update to 3.21.4.15
-
-* Mon Jul  4 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.3.59-1
-- update to 3.21.3.59
-
-* Wed Jun 22 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.3.6-1.R
-- update to 3.21.3.6
-- From this version, Adapta includes neither pre-generated CSSs nor PNGs.
-- Users/Contributors should build them by their own in build sequence.
-- Color-changer was added (see details in README.md).
-
-* Mon Jun 20 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.132-1.R
-- update to 3.21.2.132
-
-* Tue Jun  7 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.2.98-1.R
-- update to 3.21.2.98
-
-* Wed May 25 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.242-1.R
-- update to 3.21.1.242
-
-* Thu May 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.141-2.R
-- enable chromium support
-
-* Thu May 12 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.141-1.R
-- update to 3.21.1.141
-
-* Wed May  4 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.21.1.62-1.R
-- update to 3.21.1.62
-- added support of gtk 3.21
-
-* Thu Apr 21 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.70-1.R
-- update to 3.20.3.70
-
-* Mon Apr 18 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.50-1.R
-- update to 3.20.3.50
-
-* Mon Apr 18 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.45-1.R
-- update to 3.20.3.45
-
-* Thu Apr 14 2016 Arkady L. Shane <ashejn@russianfedora.ru> - 3.20.3.16-1.R
-- initial build
+* Thu Dec 28 2017 Björn Esser <besser82@fedoraproject.org> - 3.92.2.63-0.1
+- Initial rpm release (#1529593)
